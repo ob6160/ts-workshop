@@ -34,11 +34,18 @@ interface Admin {
 
 // Library augmentation / module augmentation for third‑party types:
 
-declare module "express" {
-  interface Request {
-    user?: { id: string; email?: string };
-  }
-}
+// First we declare in ambient-express.d.ts.
+
+// Now we can use the extra field!
+
+import express from "express";
+
+const app = express();
+
+app.use((req, res, next) => {
+  console.log(req.user);
+  next();
+});
 
 // Ambient/global augmentation (d.ts files):
 

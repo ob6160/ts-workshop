@@ -21,3 +21,7 @@ function parseJson<T = unknown>(raw: string): T {
 }
 
 // Generally we want to constrain the behaviour of the method using this technique.
+// This means that we don't want to allow arbitrary types to be passed in.
+
+// Here's how it protects us from passing a generic type that does not include what we expect:
+keyOf<{ whereAreIdAndSlug: number }>({ whereAreIdAndSlug: 42, slug: "jeff" });
