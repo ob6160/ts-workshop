@@ -250,3 +250,45 @@ const myValueIsSetToNoOp = noop();
 */
 
 type FunctionsAreObjects = Debug<() => void>;
+
+// Utility types
+
+// type ShapeConfig = {
+//   [K in Shapes]: {
+//     color: string;
+//     size: number;
+//   };
+// };
+
+// These are built in to the Typescript standard library and are handy for occasions where you'd like to perform operations on types.
+
+type UpperCaseKey = Uppercase<"hello">; // "HELLO"
+type UpperCaseKeys = { [K in keyof typeof shapeConfig]: Uppercase<K> };
+
+// They allow us to pick certain properties from objects to create bespoke variants.
+
+type PickedKeys = Pick<ShapeConfig, "circle" | "square">; // Only pull circle and square from our ShapeConfig mapped type.
+
+// ... and they allow us to omit certain properties as well.
+
+type OmittedKeys = Omit<ShapeConfig, "triangle">; // Omit the triangle property from our ShapeConfig mapped type.
+
+// ...
+
+// null vs undefined
+
+// We use null to represent the intentional absence of a value.
+// We use undefined to represent the absence of a value that is expected to be there.
+
+// Typescript has an option called `strictNullChecks` which allow you to configure behaviour when the compiler encounters null / undefined values.
+// This means that you can catch potential null/undefined errors at compile time rather than at runtime.
+
+function doSomething(x: string | null) {
+  console.log(x.toUpperCase());
+
+  // if (x === null) {
+  //   // do nothing
+  // } else {
+  //   console.log("Hello, " + x.toUpperCase());
+  // }
+}
